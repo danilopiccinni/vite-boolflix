@@ -12,7 +12,9 @@
         methods : {
 
             eseguiRicerca() {
-                let ricerca = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey + this.store.languageIalian + this.store.querySearch + this.store.search
+                // let ricerca = 'https://api.themoviedb.org/3/search/multi?api_key=b528c7aa813cfc570c3b175c2311ee69&query=star+wars '
+                let ricerca = this.store.Uri + this.store.searchMulti + this.store.ApiKey + this.store.querySearch + this.store.search
+                // let ricerca = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ this.store.richiestalinguaggio + this.store.languageIalian + this.store.querySearch + this.store.search
                 axios.get(ricerca).then((res) => {
                     this.store.resultsSearch = res.data.results
                     console.log(this.store.resultsSearch)

@@ -4,16 +4,20 @@ export const store = reactive({
 
     resultsSearch : [],
 
+    search : '',
+
+    Uri :'https://api.themoviedb.org/3',
+    
+    searchOfMovie : '/search/movie',
+    
+    searchMulti : '/search/multi',
+    
     ApiKey : '?api_key=b528c7aa813cfc570c3b175c2311ee69',
-
-    Uri :'https://api.themoviedb.org/3/',
-
-    searchOfMovie : 'search/movie',
 
     languageIalian : '&language=it-IT',
 
     querySearch : '&query=',
 
-    search : '',
+    richiestalinguaggio : '&language=en-US&append_to_response=images&include_image_language=en,null'
 
 })

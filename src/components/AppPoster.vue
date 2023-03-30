@@ -1,9 +1,15 @@
 <script>
+import localeEmoji from 'locale-emoji';
+
     export default {
         data() {
             return {
-
+                
             }
+        },
+
+        components  : {
+            localeEmoji,
         },
 
         props: {
@@ -34,6 +40,13 @@
         <div>
             <em>Voto:</em>
             <span>{{ film.vote_average }}</span>
+        </div>
+
+        <div v-if="film.video">
+            Film
+        </div>
+        <div v-else>
+            Serie Tv
         </div>
 
 
