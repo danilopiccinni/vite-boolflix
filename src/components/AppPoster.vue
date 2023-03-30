@@ -24,12 +24,18 @@
 
                 if (lingua == 'en') {
                     lingua = 'gb'
-                } else if (lingua == '') {
+                } else if (lingua == 'ja') {
+                    lingua = 'jp'
+                } else if (lingua == 'ko') {
+                    lingua = 'kr'
+                }
+                 else if (lingua == '') {
                     lingua = 'sconosciuta'
                 }
 
                 return lingua
-            }
+            },
+
         }
     }
 </script>
@@ -39,16 +45,19 @@
     <div class="poster">
 
 
-            <img :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
+            <img v-if="film.poster_path != null" :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
+            <img v-else :src="store.UriImage + store.posterImgSize + store.alternativeImage" alt="">
 
-
-
+    <div class="container-info">
         <div v-if="film.title">
             <em>Titolo:</em>
             <span>{{ film.title }}</span>
         </div>
         <div v-else-if="film.name">
-            {{ film.name }}
+            <em>Titolo:</em>
+            <span>
+                {{ film.name }}
+            </span>
         </div>
 
         <div v-if="film.original_title">
@@ -56,7 +65,10 @@
             <span>{{ film.original_title }}</span>
         </div>
         <div v-else-if="film.original_name">
-            {{ film.original_name }}
+            <em>Titolo originale:</em>
+            <span>
+                {{ film.original_name }}
+            </span>
         </div>
         
         <div>
@@ -78,10 +90,12 @@
         
         </div>
 
-        <div>
+         <div>
             {{ film.media_type }}
         </div>
 
+
+    </div>
 
 
     </div>
@@ -90,13 +104,18 @@
 
 <style scoped lang="scss">
 
+
+
     .fa-star,
     .fa-star-half {
         color: gold;
     }
 
     .poster {
-        border: 2px dotted gray;
+        position: relative;
+
+        background-color: black;
+
 
         width: calc(100% / 5 - 15px / 5 * 4);
 
@@ -104,8 +123,32 @@
         margin: 5px 0;
 
         img {
-            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit:contain;
+            object-position: top;
+
+
         }
+    }
+
+    .container-info {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: none;
+
+        padding: 10px 15px;
+        
+    }
+
+    .poster:hover img{
+        opacity: 0.3;
+    }
+
+    .poster:hover .container-info{
+        display: block;
     }
 
 </style>

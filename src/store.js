@@ -24,4 +24,6 @@ export const store = reactive({
 
     posterImgSize: 'w342',
 
+    alternativeImage : '/wwemzKWzjKYJFfCeiB57q3r4Bcm.png'
+
 })
