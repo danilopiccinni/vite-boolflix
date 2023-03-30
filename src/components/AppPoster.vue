@@ -66,7 +66,16 @@
 
         <div v-if="film.vote_average">
             <em>Voto:</em>
-            <span>{{ parseInt(film.vote_average)  }}</span>
+            <i v-if="film.vote_average >= 2" class="fa-solid fa-star"></i>
+                <i v-else-if="film.vote_average >= 3 && film.vote_average < 4" class="fa-solid fa-star-half"></i>
+            <i v-if="film.vote_average >= 4" class="fa-solid fa-star"></i>
+                <i v-if="film.vote_average >= 4 && film.vote_average < 5" class="fa-solid fa-star-half"></i>
+            <i v-if="film.vote_average >= 6" class="fa-solid fa-star"></i>
+                <i v-if="film.vote_average >= 6 && film.vote_average < 7" class="fa-solid fa-star-half"></i>
+            <i v-if="film.vote_average >= 8" class="fa-solid fa-star"></i>
+                <i v-if="film.vote_average >= 8 && film.vote_average < 9" class="fa-solid fa-star-half"></i>
+            <i v-if="film.vote_average >= 10" class="fa-solid fa-star"></i>
+        
         </div>
 
         <div>
@@ -80,6 +89,11 @@
 </template>
 
 <style scoped lang="scss">
+
+    .fa-star,
+    .fa-star-half {
+        color: gold;
+    }
 
     .poster {
         border: 2px dotted gray;
