@@ -1,5 +1,5 @@
 <script>
-import localeEmoji from 'locale-emoji';
+    import "/node_modules/flag-icons/css/flag-icons.min.css";
 
     export default {
         data() {
@@ -9,11 +9,25 @@ import localeEmoji from 'locale-emoji';
         },
 
         components  : {
-            localeEmoji,
+            
         },
 
         props: {
             film : Object,
+        },
+
+        methods : {
+            controllaLingua() {
+                let lingua = this.film.original_language
+
+                if (lingua == 'en') {
+                    lingua = 'gb'
+                } else if (lingua == '') {
+                    lingua = 'sconosciuta'
+                }
+
+                return lingua
+            }
         }
     }
 </script>
@@ -22,32 +36,36 @@ import localeEmoji from 'locale-emoji';
 
     <div class="poster">
 
-        <div>
+        <div v-if="film.title">
             <em>Titolo:</em>
             <span>{{ film.title }}</span>
         </div>
+        <div v-else-if="film.name">
+            {{ film.name }}
+        </div>
 
-        <div>
+        <div v-if="film.original_title">
             <em>Titolo originale:</em>
             <span>{{ film.original_title }}</span>
+        </div>
+        <div v-else-if="film.original_name">
+            {{ film.original_name }}
         </div>
         
         <div>
             <em>Lingua originale:</em>
-            <span>{{ film.original_language }}</span>
+            <span class="fi" :class="`fi-${controllaLingua()}` "></span>
+        </div>
+
+        <div v-if="film.vote_average">
+            <em>Voto:</em>
+            <span>{{ parseInt(film.vote_average)  }}</span>
         </div>
 
         <div>
-            <em>Voto:</em>
-            <span>{{ film.vote_average }}</span>
+            {{ film.media_type }}
         </div>
 
-        <div v-if="film.video">
-            Film
-        </div>
-        <div v-else>
-            Serie Tv
-        </div>
 
 
     </div>

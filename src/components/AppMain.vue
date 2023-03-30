@@ -26,8 +26,6 @@
 
     <AppPoster v-for="film in store.resultsSearch" :film="film" ></AppPoster>
 
-    
-
 </template>
 
 
