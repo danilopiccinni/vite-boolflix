@@ -1,10 +1,12 @@
 <script>
     import "/node_modules/flag-icons/css/flag-icons.min.css";
 
+    import { store } from '../store';
+
     export default {
         data() {
             return {
-                
+                store,
             }
         },
 
@@ -35,6 +37,11 @@
 <template>
 
     <div class="poster">
+
+
+            <img :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
+
+
 
         <div v-if="film.title">
             <em>Titolo:</em>
@@ -77,8 +84,14 @@
     .poster {
         border: 2px dotted gray;
 
+        width: calc(100% / 5 - 15px / 5 * 4);
+
         padding: 10px 0;
         margin: 5px 0;
+
+        img {
+            width: 100%;
+        }
     }
 
 </style>

@@ -21,14 +21,29 @@
 
 
 <template>
+    <div>
 
-    <AppSearch></AppSearch>
+        <AppSearch></AppSearch>
 
-    <AppPoster v-for="film in store.resultsSearch" :film="film" ></AppPoster>
+    </div>
+    <div class="container-poster">
+    
+        <AppPoster v-for="film in store.resultsSearch" :film="film" ></AppPoster>
+
+    </div>
+
 
 </template>
 
 
 <style scoped lang="scss">
+
+    .container-poster {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        padding: 10px;
+    }
 
 </style>

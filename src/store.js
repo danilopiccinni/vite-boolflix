@@ -18,6 +18,10 @@ export const store = reactive({
 
     querySearch : '&query=',
 
-    richiestalinguaggio : '&language=en-US&append_to_response=images&include_image_language=en,null'
+    richiestalinguaggio : '&language=en-US&append_to_response=images&include_image_language=en,null',
+
+    UriImage : 'https://image.tmdb.org/t/p/',
+
+    posterImgSize: 'w342',
 
 })
