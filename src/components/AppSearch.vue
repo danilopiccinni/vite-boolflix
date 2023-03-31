@@ -53,11 +53,40 @@
 <style scoped lang="scss">
 
     .container-search {
-        
-        display: flex;
-        gap: 5px;
+        display: inline-flex;
+        align-items: center;
 
-        
+        border-radius: 4px;
+        background-color: white;
+        color: black;
+
+    }
+
+    .container-search :is(input , button) {
+        background: transparent;
+        color: inherit;
+        border: none;
+        outline: none;
+    }
+
+    input {
+        width: 0;
+
+        transition:  width 0.5s;;
+    }
+
+    button {
+        display: grid;
+        place-items: center;
+        width: 50px;
+        height: 25px;
+        cursor: pointer;
+        transition: color .25s;
+    }
+
+    .container-search:focus-within input {
+        padding-left: 5px;
+        width: 200px;
     }
 
 </style>
