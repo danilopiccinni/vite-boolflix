@@ -1,19 +1,18 @@
 <script>
+import AppNav from './AppNav.vue';
 import AppSearch from './AppSearch.vue';
     import { store } from '../store';
 
     export default {
         data() {
             return {
-
-                
-
                 store,
             }
         },
 
         components : {
             AppSearch,
+            AppNav,
         }
     }
 </script>
@@ -21,17 +20,11 @@ import AppSearch from './AppSearch.vue';
 <template>
     <header>
         <div class="header-sx">
+            
             <img :src="store.UriImage + store.posterImgSize + store.alternativeImage" alt="">
-            <nav>
-                <ul>
-                    <li>Home</li>
-                    <li>Serie TV</li>
-                    <li>Film</li>
-                    <li>Nuovi e popolari</li>
-                    <li>La mia lista</li>
-                    <li>Sfoglia per lingua</li>
-                </ul>
-            </nav>
+
+            <AppNav></AppNav>
+
         </div>
 
         <div class="header-dx">
@@ -82,26 +75,6 @@ import AppSearch from './AppSearch.vue';
             gap: 40px;
 
             padding-right: 35px;
-        }
-    }
-
-    ul {
-        display: flex;
-        gap: 15px;
-
-        list-style-type: none;
-
-        li {
-            color: #d7d7d7;
-            font-size: 14px;
-            font-weight: bold;
-
-            padding: 15px 0;
-
-            &:hover {
-                color: white;
-                cursor: pointer;
-            }
         }
     }
 
