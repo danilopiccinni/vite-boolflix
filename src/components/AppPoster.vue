@@ -3,12 +3,27 @@
     import "/node_modules/flag-icons/css/flag-icons.min.css";
     // importo lo store
     import { store } from '../store';
+import { formToJSON } from "axios";
 
     export default {
         data() {
             return {
                 // dichiaro lo store
                 store,
+
+                // stelline da visualizzare
+                voti : [
+                    '<i class="fa-solid fa-star-half"></i>', //voto 1 (mezza stella)
+                    '<i class="fa-solid fa-star"></i>',   //voto 2 (una stella)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>', //voto 3 (una stella e meza)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>', //voto 4 (due stelle)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>', //voto 5 (due stelle e mezza)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>',  //voto 6 (tre stelle)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half"></i>', // voto 7 (tre stelle e mezza)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>', // voto 8 (quattro stelle)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i><i class="fa-solid fa-star-half"></i>', // voto 9 ( quattro stelle e mezza)
+                    '<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></i><i class="fa-solid fa-star"></i>', // voto 10 (cinque stelle)
+                ]
             }
         },
 
@@ -20,22 +35,31 @@
         methods : {
             // funzione che fa un controllo sulla presenza della lingua e fixxa certe mancanze o discordanze 
             controllaLingua() {
-
+                // assegna a una variabile l'abbreviazione della lingua 
                 let lingua = this.film.original_language
 
-                if (lingua == 'en') {
+                if (lingua == 'en') {  // fix lingua inglese
                     lingua = 'gb'
-                } else if (lingua == 'ja') {
+                } else if (lingua == 'ja') {  //fix lingua japponese
                     lingua = 'jp'
-                } else if (lingua == 'ko') {
+                } else if (lingua == 'ko') {  // fix lingua koreana
                     lingua = 'kr'
                 }
-                 else if (lingua == '') {
+                 else if (lingua == '') {  //in caso la lingua sia sconosciuta o non indicata
                     lingua = 'sconosciuta'
                 }
-
-                return lingua
+                // ritorna la variabile/abbreviazione corretta nel caso si presentava il caso
+                return lingua 
             },
+
+            // funzione che ciene richiamata per la visualizazzione del voto
+            inserisciVoto() {
+                // crea una costante che prende il valore arrotondato del voto del film/risultato della ricerca
+                const voto = Math.round(this.film.vote_average)
+                // ritorna le stelline da visualizzare dall'array di stelline dando come indice il valore del voto '-1' per far coincidere la posizione
+                return this.voti[voto - 1]
+
+            }
         }
     }
 </script>
@@ -79,17 +103,8 @@
                 <!-- contenitore dedicato alla visualizazzione delle stelline in base al voto  -->
                 <div v-if="film.vote_average">
                     <em>Voto:</em>
-                    <i v-if="film.vote_average == 1" class="fa-solid fa-star-half"></i>
-                    <i v-if="film.vote_average == 2 || film.vote_average > 2" class="fa-solid fa-star"></i>
-                    <i v-if="film.vote_average == 3" class="fa-solid fa-star-half"></i>
-                    <i v-if="film.vote_average == 4 || film.vote_average > 4" class="fa-solid fa-star"></i>
-                    <i v-if="film.vote_average == 5" class="fa-solid fa-star-half"></i>
-                    <i v-if="film.vote_average == 6 || film.vote_average > 6" class="fa-solid fa-star"></i>
-                    <i v-if="film.vote_average == 7" class="fa-solid fa-star-half"></i>
-                    <i v-if="film.vote_average == 8 || film.vote_average > 8" class="fa-solid fa-star"></i>
-                    <i v-if="film.vote_average == 9" class="fa-solid fa-star-half"></i>
-                    <i v-if="film.vote_average == 10" class="fa-solid fa-star"></i>
-                
+                    <!-- voto visualizzato richiamando una funzione che gestisce la trasformazione del voto in stelline -->
+                     <span class="voto" v-html="inserisciVoto()"></span>
                 </div>
                 
                 <!-- contenitore che conterrà il tipo di risultato ottenuto (film,serie,persona.ecc) quando si effettua una ricerca multipla -->
@@ -106,8 +121,7 @@
 
 
 
-    .fa-star,
-    .fa-star-half {
+    .voto {
         color: gold;
     }
 
