@@ -13,11 +13,17 @@
 
             eseguiRicerca() {
                 // let ricerca = 'https://api.themoviedb.org/3/search/multi?api_key=b528c7aa813cfc570c3b175c2311ee69&query=star+wars '
-                let ricerca = this.store.Uri + this.store.searchMulti + this.store.ApiKey + this.store.querySearch + this.store.search
-                // let ricerca = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ this.store.richiestalinguaggio + this.store.languageIalian + this.store.querySearch + this.store.search
-                axios.get(ricerca).then((res) => {
-                    this.store.resultsSearch = res.data.results
-                    console.log(this.store.resultsSearch)
+                // let ricerca = this.store.Uri + this.store.searchMulti + this.store.ApiKey + this.store.querySearch + this.store.search
+                let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ this.store.richiestalinguaggio + this.store.languageIalian + this.store.querySearch + this.store.search
+                axios.get(ricercaFilm).then((res) => {
+                    this.store.resultsSearchFilms = res.data.results
+                    console.log(this.store.resultsSearchFilms)
+                })
+                
+                let ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey + this.store.querySearch + this.store.search
+                    axios.get(ricercaTv).then((res) => {
+                    this.store.resultsSearchTv = res.data.results
+                    console.log(this.store.resultsSearchTv)
                 })
             }
 
@@ -38,5 +44,13 @@
 </template>
 
 <style scoped lang="scss">
+
+    .container-search {
+        
+        display: flex;
+        gap: 5px;
+
+        
+    }
 
 </style>
