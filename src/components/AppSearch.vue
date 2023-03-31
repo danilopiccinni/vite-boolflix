@@ -85,9 +85,12 @@
         transition: color .25s;
     }
 
-    .container-search:hover input {
+    .container-search:hover input,
+    .container-search:focus-within input {
         padding-left: 5px;
         width: 200px;
     }
+
+    
 
 </style>
