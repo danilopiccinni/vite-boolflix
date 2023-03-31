@@ -8,13 +8,17 @@
         data() {
             return {
                 store,
+
             }
         },
+
+
 
         components : {
 
             AppPoster,
-        }
+        },
+
     }
 </script>
 
@@ -22,7 +26,7 @@
 <template>
     <main>
 
-        <div v-if="store.resultsSearchFilms.length > 0" class="container-films">
+        <div v-if="store.resultsSearchFilms.length > 0 && store.active == 2" class="container-films">
     
             <strong>Films</strong>
             
@@ -34,7 +38,7 @@
             </div>
         </div>
     
-        <div v-if="store.resultsSearchTv.length > 0" class="container-series">
+        <div v-if="store.resultsSearchTv.length > 0 && store.active == 1" class="container-series">
     
             <strong>Series</strong>
             
@@ -45,7 +49,7 @@
             </div>
         </div>
 
-        <div v-if="store.resultsMista.length > 0" class="container-series">
+        <div v-if="store.resultsMista.length > 0 && store.active == 0" class="container-series">
     
             <strong>Misto</strong>
             

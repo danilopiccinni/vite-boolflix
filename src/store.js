@@ -2,6 +2,8 @@ import {reactive} from 'vue'
 
 export const store = reactive({
 
+    active : null,
+
     resultsSearchFilms : [],
 
     resultsSearchTv : [],

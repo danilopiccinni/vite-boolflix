@@ -1,7 +1,12 @@
 <script>
+
+import { store } from '../store';
+
     export default {
         data() {
             return {
+                store,
+
                 navLinks : [
                     'Home',
                     'Serie TV',
@@ -11,6 +16,12 @@
                     'Sfoglia per lingua'
                 ]
             }
+        },
+
+        methods : {
+            giveActive(index) {
+                this.store.active = index
+            }
         }
     }
 </script>
@@ -18,7 +29,7 @@
 <template>
     <nav>
         <ul>
-            <li v-for="link in navLinks"> {{ link }} </li>
+            <li v-for="(link,index) in navLinks" @click="giveActive(index)" :class="store.active == index ? 'active' : ''"> {{ link }} </li>
         </ul>
     </nav>
         
@@ -44,6 +55,10 @@
                 cursor: pointer;
             }
         }
+    }
+
+    .active {
+        color: white;
     }
 
 </style>
