@@ -25,6 +25,13 @@
                     this.store.resultsSearchTv = res.data.results
                     console.log(this.store.resultsSearchTv)
                 })
+
+                // let ricerca = 'https://api.themoviedb.org/3/search/multi?api_key=b528c7aa813cfc570c3b175c2311ee69&query=' + this.store.search 
+                let ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey + this.store.querySearch + this.store.search
+                    axios.get(ricercaMista).then((res) => {
+                    this.store.resultsMista = res.data.results
+                    console.log(this.store.resultsMista)
+                })
             }
 
 

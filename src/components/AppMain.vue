@@ -44,6 +44,17 @@
         
             </div>
         </div>
+
+        <div v-if="store.resultsMista.length > 0" class="container-series">
+    
+            <strong>Misto</strong>
+            
+            <div class="container-poster">
+            
+                <AppPoster v-for="result in store.resultsMista" :film="result"></AppPoster>
+                
+            </div>
+        </div>
     </main>
 </template>
 

@@ -6,6 +6,8 @@ export const store = reactive({
 
     resultsSearchTv : [],
 
+    resultsMista : [],
+
     search : '',
 
     Uri :'https://api.themoviedb.org/3',
