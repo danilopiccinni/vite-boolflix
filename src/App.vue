@@ -1,4 +1,5 @@
 <script>
+import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 
 import { store } from './store';
@@ -13,6 +14,7 @@ import { store } from './store';
 
     components : {
       AppMain,
+      AppHeader,
     }
   }
 
@@ -20,6 +22,8 @@ import { store } from './store';
 
 
 <template>
+
+  <AppHeader></AppHeader>
 
   <AppMain></AppMain>
 
