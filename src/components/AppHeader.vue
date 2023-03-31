@@ -29,7 +29,7 @@ import AppSearch from './AppSearch.vue';
 
         <div class="header-dx">
             <AppSearch></AppSearch>
-            <i class="fa-solid fa-magnifying-glass"></i>
+
             <i class="fa-regular fa-bell"></i>
             <i class="fa-solid fa-user"></i>
         </div>

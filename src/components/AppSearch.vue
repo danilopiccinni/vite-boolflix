@@ -45,7 +45,7 @@
     <div class="container-search">
 
         <input v-model="store.search" @keyup.enter="eseguiRicerca()" type="text">
-        <button @click="eseguiRicerca()" >Cerca</button>
+        <button @click="eseguiRicerca()" >            <i class="fa-solid fa-magnifying-glass"></i></button>
 
     </div>
 
