@@ -44,59 +44,57 @@
 
     <div class="poster">
 
-            <img v-if="film.poster_path != null" :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
-            <img v-else :src="store.UriImage + store.posterImgSize + store.alternativeImage" alt="">
-
-    <div class="container-info">
-        <div v-if="film.title">
-            <em>Titolo:</em>
-            <span>{{ film.title }}</span>
-        </div>
-        <div v-else-if="film.name">
-            <em>Titolo:</em>
-            <span>
-                {{ film.name }}
-            </span>
-        </div>
-
-        <div v-if="film.original_title">
-            <em>Titolo originale:</em>
-            <span>{{ film.original_title }}</span>
-        </div>
-        <div v-else-if="film.original_name">
-            <em>Titolo originale:</em>
-            <span>
-                {{ film.original_name }}
-            </span>
-        </div>
+        <img v-if="film.poster_path != null" :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
+        <img class="alternative-image" v-else :src="store.UriImage + store.posterImgSize + store.alternativeImage" alt="">
         
-        <div>
-            <em>Lingua originale:</em>
-            <span class="fi" :class="`fi-${controllaLingua()}` "></span>
-        </div>
-
-        <div v-if="film.vote_average">
-            <em>Voto:</em>
-            <i v-if="film.vote_average >= 2" class="fa-solid fa-star"></i>
-            <i v-else-if="film.vote_average >= 3 && film.vote_average < 4" class="fa-solid fa-star-half"></i>
-            <i v-if="film.vote_average >= 4" class="fa-solid fa-star"></i>
-            <i v-if="film.vote_average >= 4 && film.vote_average < 5" class="fa-solid fa-star-half"></i>
-            <i v-if="film.vote_average >= 6" class="fa-solid fa-star"></i>
-            <i v-if="film.vote_average >= 6 && film.vote_average < 7" class="fa-solid fa-star-half"></i>
-            <i v-if="film.vote_average >= 8" class="fa-solid fa-star"></i>
-            <i v-if="film.vote_average >= 8 && film.vote_average < 9" class="fa-solid fa-star-half"></i>
-            <i v-if="film.vote_average >= 10" class="fa-solid fa-star"></i>
+            <div class="container-info">
+                <div v-if="film.title">
+                    <em>Titolo:</em>
+                    <span>{{ film.title }}</span>
+                </div>
+                <div v-else-if="film.name">
+                    <em>Titolo:</em>
+                    <span>
+                        {{ film.name }}
+                    </span>
+                </div>
         
-        </div>
-
-        <div>
-            {{ film.media_type }}
-        </div>
-
-
-    </div>
-
-
+                <div v-if="film.original_title">
+                    <em>Titolo originale:</em>
+                    <span>{{ film.original_title }}</span>
+                </div>
+                <div v-else-if="film.original_name">
+                    <em>Titolo originale:</em>
+                    <span>
+                        {{ film.original_name }}
+                    </span>
+                </div>
+                
+                <div>
+                    <em>Lingua originale:</em>
+                    <span class="fi" :class="`fi-${controllaLingua()}` "></span>
+                </div>
+        
+                <div v-if="film.vote_average">
+                    <em>Voto:</em>
+                    <i v-if="film.vote_average >= 1 && film.vote_average < 2" class="fa-solid fa-star-half"></i>
+                    <i v-if="film.vote_average >= 2" class="fa-solid fa-star"></i>
+                    <i v-if="film.vote_average >= 3 && film.vote_average < 4" class="fa-solid fa-star-half"></i>
+                    <i v-if="film.vote_average >= 4" class="fa-solid fa-star"></i>
+                    <i v-if="film.vote_average >= 4 && film.vote_average < 5" class="fa-solid fa-star-half"></i>
+                    <i v-if="film.vote_average >= 6" class="fa-solid fa-star"></i>
+                    <i v-if="film.vote_average >= 6 && film.vote_average < 7" class="fa-solid fa-star-half"></i>
+                    <i v-if="film.vote_average >= 8" class="fa-solid fa-star"></i>
+                    <i v-if="film.vote_average >= 8 && film.vote_average < 9" class="fa-solid fa-star-half"></i>
+                    <i v-if="film.vote_average >= 10" class="fa-solid fa-star"></i>
+                
+                </div>
+        
+                <div>
+                    {{ film.media_type }}
+                </div>
+                
+            </div>
     </div>
 
 </template>
@@ -115,19 +113,26 @@
 
         background-color: black;
 
+        width: 200px;
+        height: 300px;
+        aspect-ratio: 1/1;
+        // width: calc(100% / 7 - 15px / 7 * 6);
 
-        width: calc(100% / 7 - 15px / 7 * 6);
 
-        padding: 10px 0;
+
+
         margin: 5px 0;
 
         img {
-            max-width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit:contain;
-            object-position: top;
+            width: 100%;
+            height: 100%;
+            
+            object-fit: cover;
 
-
+            &.alternative-image {
+                object-fit: contain;
+                padding: 0 10px;
+            }
         }
     }
 
@@ -135,6 +140,9 @@
         position: absolute;
         top: 0;
         left: 0;
+
+        width: 100%;
+        height: 100%;
 
         display: none;
 
@@ -149,5 +157,7 @@
     .poster:hover .container-info{
         display: block;
     }
+
+
 
 </style>
