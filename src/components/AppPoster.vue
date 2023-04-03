@@ -3,11 +3,15 @@
     import "/node_modules/flag-icons/css/flag-icons.min.css";
     // importo lo store
     import { store } from '../store';
-import { formToJSON } from "axios";
+import axios from "axios";
 
     export default {
         data() {
             return {
+
+                show: true,
+                attori : [],
+
                 // dichiaro lo store
                 store,
 
@@ -59,6 +63,34 @@ import { formToJSON } from "axios";
                 // ritorna le stelline da visualizzare dall'array di stelline dando come indice il valore del voto '-1' per far coincidere la posizione
                 return this.voti[voto - 1]
 
+            },
+
+            ricercaDettagli() {
+                if (this.show) {
+                    this.show = false
+                } else {
+                    this.show = true
+                }
+                axios.get('https://api.themoviedb.org/3/movie/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
+                    console.log(res)
+                    // this.attori = res.data.cast
+                    if (this.attori.length == 0) {
+                        for (let i = 0 ; i < 5 ; i++) {
+                            this.attori.push(res.data.cast[i].name)
+                        }
+                    }
+                })
+
+                axios.get('https://api.themoviedb.org/3/tv/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
+                    console.log(res)
+                    // this.attori = res.data.cast
+                    if (this.attori.length == 0) {
+                        for (let i = 0 ; i < 5 ; i++) {
+                            this.attori.push(res.data.cast[i].name)
+                        }
+                    }
+                })
+
             }
         }
     }
@@ -67,7 +99,7 @@ import { formToJSON } from "axios";
 <template>
 
     <!-- contenitore dell'intero poster -->
-    <div class="poster">
+    <div @click="ricercaDettagli()" class="poster">
         <!-- visualizziamo l'immagine di copertina con un 'v-if' di controllo se ci sia un immagine da visualizzare-->
         <img v-if="film.poster_path != null" :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
         <!-- visualizziamo un immagine alternativa nel caso non si hanno immagini a disposizione -->
@@ -75,41 +107,51 @@ import { formToJSON } from "axios";
         
             <!-- contenitore generale delle info riguardanti il risultato -->
             <div class="container-info">
-                <!-- contenitore del titolo/nome del film che si visualizza solo se sia un film -->
-                <div v-if="film.title">
-                    <span>{{ film.title }}</span>
+
+                <div v-show="show">
+                    <!-- contenitore del titolo/nome del film che si visualizza solo se sia un film -->
+                    <div v-if="film.title">
+                        <span>{{ film.title }}</span>
+                    </div>
+                    <!--contenitore se il titolo/nome del risultato e se visualizza solo se sia diverso da un film-->
+                    <div v-else-if="film.name">
+                        <span>{{ film.name }}</span>
+                    </div>
+                    
+                    <!-- contenitore del titolo/nome originale del film che si visualizza solo se sia un film -->
+                    <div v-if="film.original_title">
+                        <em>({{ film.original_title }})</em>
+                    </div>
+                    <!--contenitore se il titolo/nome originale del risultato e se visualizza solo se sia diverso da un film-->
+                    <div v-else-if="film.original_name">
+                        <em>({{ film.original_name }})</em>
+                    </div>
+                    
+                    <!--contenitore della lingua originale del resultato-->
+                    <div>
+                        <em>Lingua originale:</em>
+                        <!-- in cui tramite interpolazione della classe permessa da vue facciamo partire la funzione creata per la gestire le lingue che a volte non ci sono o sono scritte in modo anomalo -->
+                        <span class="fi" :class="`fi-${controllaLingua()}` "></span>
+                    </div>
+                    
+                    <!-- contenitore dedicato alla visualizazzione delle stelline in base al voto  -->
+                    <div v-if="film.vote_average">
+                        <em>Voto:</em>
+                        <!-- voto visualizzato richiamando una funzione che gestisce la trasformazione del voto in stelline -->
+                         <span class="voto" v-html="inserisciVoto()"></span>
+                    </div>
+                    
+                    <!-- contenitore che conterrà il tipo di risultato ottenuto (film,serie,persona.ecc) quando si effettua una ricerca multipla -->
+                    <div>
+                        <strong>{{ film.media_type }}</strong>
+                    </div>
+
                 </div>
-                <!--contenitore se il titolo/nome del risultato e se visualizza solo se sia diverso da un film-->
-                <div v-else-if="film.name">
-                    <span>{{ film.name }}</span>
-                </div>
-                
-                <!-- contenitore del titolo/nome originale del film che si visualizza solo se sia un film -->
-                <div v-if="film.original_title">
-                    <em>({{ film.original_title }})</em>
-                </div>
-                <!--contenitore se il titolo/nome originale del risultato e se visualizza solo se sia diverso da un film-->
-                <div v-else-if="film.original_name">
-                    <em>({{ film.original_name }})</em>
-                </div>
-                
-                <!--contenitore della lingua originale del resultato-->
-                <div>
-                    <em>Lingua originale:</em>
-                    <!-- in cui tramite interpolazione della classe permessa da vue facciamo partire la funzione creata per la gestire le lingue che a volte non ci sono o sono scritte in modo anomalo -->
-                    <span class="fi" :class="`fi-${controllaLingua()}` "></span>
-                </div>
-                
-                <!-- contenitore dedicato alla visualizazzione delle stelline in base al voto  -->
-                <div v-if="film.vote_average">
-                    <em>Voto:</em>
-                    <!-- voto visualizzato richiamando una funzione che gestisce la trasformazione del voto in stelline -->
-                     <span class="voto" v-html="inserisciVoto()"></span>
-                </div>
-                
-                <!-- contenitore che conterrà il tipo di risultato ottenuto (film,serie,persona.ecc) quando si effettua una ricerca multipla -->
-                <div>
-                    <strong>{{ film.media_type }}</strong>
+
+                <div v-show="!show">
+                    <ul>
+                        <li v-for="attori in attori"> {{attori}}</li>
+                    </ul>
                 </div>
                 
             </div>
