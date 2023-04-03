@@ -40,6 +40,12 @@ import axios from "axios";
             film : Object,
         },
 
+        created() {
+            axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
+                this.store.genre_ids = res.data.genres
+            })
+        },
+
         methods : {
             // funzione che fa un controllo sulla presenza della lingua e fixxa certe mancanze o discordanze 
             controllaLingua() {
@@ -73,9 +79,9 @@ import axios from "axios";
 // <!----------------------------------------------------------- da ottimizzare -->
 // funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
             ricercaDettagli() {
+
                 if (this.IdGeneriIndividuati.length == 0) {
                 this.IdGeneriIndividuati = this.film.genre_ids
-                console.log(this.generi)
                     for (let i = 0; i < this.store.genre_ids.length ; i++) {
                         if (this.IdGeneriIndividuati.includes(this.store.genre_ids[i].id)) {
                             this.generiIndividuatiDaVedere.push (this.store.genre_ids[i].name)
@@ -112,10 +118,7 @@ import axios from "axios";
                     })
                 }
 
-                axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-                    console.log(res)
-                    this.store.genre_ids = res.data.genres
-                })
+
             },
 // funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
 // <!----------------------------------------------------------- da ottimizzare -->
