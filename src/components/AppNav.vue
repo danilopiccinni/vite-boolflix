@@ -63,11 +63,11 @@ import { store } from '../store';
                 color: white;
                 cursor: pointer;
             }
+            &.active {
+                color: white;
+            }
         }
     }
 
-    .active {
-        color: white;
-    }
 
 </style>
