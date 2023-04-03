@@ -51,6 +51,8 @@ export const store = reactive({
 
     // parte di stringa finale usata per gestire le gli oggetti che non hanno immagine
     // in pratica usata come immagine sostitutiva
-    alternativeImage : '/wwemzKWzjKYJFfCeiB57q3r4Bcm.png'
+    alternativeImage : '/wwemzKWzjKYJFfCeiB57q3r4Bcm.png',
+
+    genre_ids : [],
 
 })

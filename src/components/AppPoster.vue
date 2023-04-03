@@ -10,7 +10,11 @@ import axios from "axios";
             return {
 
                 show: true,
+
                 attori : [],
+                IdGeneriIndividuati : [],
+                generiIndividuatiDaVedere : [],
+
 
                 // dichiaro lo store
                 store,
@@ -65,33 +69,57 @@ import axios from "axios";
 
             },
 
+
+// <!----------------------------------------------------------- da ottimizzare -->
+// funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
             ricercaDettagli() {
+                if (this.IdGeneriIndividuati.length == 0) {
+                this.IdGeneriIndividuati = this.film.genre_ids
+                console.log(this.generi)
+                    for (let i = 0; i < this.store.genre_ids.length ; i++) {
+                        if (this.IdGeneriIndividuati.includes(this.store.genre_ids[i].id)) {
+                            this.generiIndividuatiDaVedere.push (this.store.genre_ids[i].name)
+                        }
+                    }
+                }
+
                 if (this.show) {
                     this.show = false
                 } else {
                     this.show = true
                 }
-                axios.get('https://api.themoviedb.org/3/movie/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-                    console.log(res)
-                    // this.attori = res.data.cast
-                    if (this.attori.length == 0) {
-                        for (let i = 0 ; i < 5 ; i++) {
-                            this.attori.push(res.data.cast[i].name)
-                        }
-                    }
-                })
 
-                axios.get('https://api.themoviedb.org/3/tv/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-                    console.log(res)
-                    // this.attori = res.data.cast
-                    if (this.attori.length == 0) {
-                        for (let i = 0 ; i < 5 ; i++) {
-                            this.attori.push(res.data.cast[i].name)
+                if (this.film.title) {
+                    axios.get('https://api.themoviedb.org/3/movie/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
+    
+                        // this.attori = res.data.cast
+                        if (this.attori.length == 0) {
+                            for (let i = 0 ; i < 5 ; i++) {
+                                this.attori.push(res.data.cast[i].name)
+                            }
                         }
-                    }
-                })
+                    })
+                } else if (this.film.name) {
 
-            }
+                    axios.get('https://api.themoviedb.org/3/tv/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
+    
+                        // this.attori = res.data.cast
+                        if (this.attori.length == 0) {
+                            for (let i = 0 ; i < 5 ; i++) {
+                                this.attori.push(res.data.cast[i].name)
+                            }
+                        }
+                    })
+                }
+
+                axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
+                    console.log(res)
+                    this.store.genre_ids = res.data.genres
+                })
+            },
+// funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
+// <!----------------------------------------------------------- da ottimizzare -->
+
         }
     }
 </script>
@@ -148,12 +176,34 @@ import axios from "axios";
 
                 </div>
 
+
+<!----------------------------------------------------------- da ottimizzare -->
+<!----------------------------------------------------------- -->
+<!-- questo verrà visualizzato al click del poster sostituendo la visualizzazione in hover di prima -->
                 <div v-show="!show">
-                    <ul>
-                        <li v-for="attori in attori"> {{attori}}</li>
-                    </ul>
+                    <div>
+                        <strong>Attori:</strong>
+                        <ul>
+                            <li v-for="attori in attori"> {{attori}}</li>
+                        </ul>
+                    </div>
+
+                    <hr>
+                    <hr>
+
+                    <div>
+                        <strong>Fa parte di:</strong>
+                        <ul>
+                            <li v-for="(generi,index) in generiIndividuatiDaVedere">
+                            <em>Genere {{ index+1 }}:</em> <strong>{{ generi }}</strong> </li>
+                        </ul>
+                    </div>
                 </div>
-                
+<!-- / questo verrà visualizzato al click del poster sostituendo la visualizzazione in hover di prima -->
+<!----------------------------------------------------------- -->
+<!-----------------------------------------------------------  da ottimizzare -->
+
+
             </div>
     </div>
 
@@ -210,6 +260,10 @@ import axios from "axios";
 
     .poster:hover .container-info{
         display: block;
+    }
+
+    ul{
+        list-style-type: none;
     }
 
 
