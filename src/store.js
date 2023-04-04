@@ -62,4 +62,9 @@ export const store = reactive({
     // variabile sentinella per gestire la ricerca/filtraggio dei generi
     ricercaGenere : null,
 
+    totalPageFilm : null,
+
+    totalPageTv : null,
+
+    totalPageMista : null,
 })

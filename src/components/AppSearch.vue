@@ -26,6 +26,7 @@
                     // assegnamo all'array creato e dedicato a contenre i film restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsSearchFilms = res.data.results
                     console.log(this.store.resultsSearchFilms)
+                    this.store.totalPageFilm = res.data.total_pages
                 })
 
                 // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca sule serie tv
@@ -34,6 +35,7 @@
                     axios.get(ricercaTv).then((res) => {
                     // assegnamo all'array creato e dedicato a contenre le serie tv restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsSearchTv = res.data.results
+                    this.store.totalPageTv = res.data.total_pages
                 })
 
                 // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca multipla/generale
@@ -42,6 +44,7 @@
                     axios.get(ricercaMista).then((res) => {
                     // assegnamo all'array creato e dedicato a contenre i risultati restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsMista = res.data.results
+                    this.store.totalPagemista = res.data.total_pages
                 })
             },
 

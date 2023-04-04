@@ -13,20 +13,22 @@ import axios from 'axios'
 
         methods : {
             paginaAvantiFilm() {
-                
-                this.counterPageFilm++
-                let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ '&page='+ this.counterPageFilm + this.store.querySearch + this.store.search
-                console.log(ricercaFilm)
-                // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
-                axios.get(ricercaFilm).then((res) => {
-                    console.log(res)
-                    // assegnamo all'array creato e dedicato a contenre i film restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
-                    this.store.resultsSearchFilms = res.data.results
-                    console.log(this.store.resultsSearchFilms)
-                })
+                if (this.counterPageFilm < this.store.totalPageFilm) {
+                    this.counterPageFilm++
+                    let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ '&page='+ this.counterPageFilm + this.store.querySearch + this.store.search
+                    console.log(ricercaFilm)
+                    // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
+                    axios.get(ricercaFilm).then((res) => {
+                        console.log(res)
+                        // assegnamo all'array creato e dedicato a contenre i film restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
+                        this.store.resultsSearchFilms = res.data.results
+                        console.log(this.store.resultsSearchFilms)
+                    })
+                }
             },
 
             paginaAvantiTv() {
+                if (this.counterPageTv < this.store.totalPageTv) {
                     this.counterPageTv++
                     // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca sule serie tv
                     let ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey+ '&page='+ this.counterPageTv + this.store.querySearch + this.store.search
@@ -35,9 +37,11 @@ import axios from 'axios'
                     // assegnamo all'array creato e dedicato a contenre le serie tv restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsSearchTv = res.data.results
                 })
+                }
             },
 
             paginaAvantiHome() {
+                if (this.counterPageHome < this.store.totalPageMista) {
                     this.counterPageHome++
                     // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca multipla/generale
                     let ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey+ '&page='+ this.counterPageHome + this.store.querySearch + this.store.search
@@ -46,6 +50,7 @@ import axios from 'axios'
                     // assegnamo all'array creato e dedicato a contenre i risultati restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsMista = res.data.results
                 })
+                }
             },
             paginaIndietroFilm() {
                 if (this.counterPageFilm !=1) {
