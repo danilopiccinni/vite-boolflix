@@ -40,12 +40,6 @@ import axios from "axios";
             film : Object,
         },
 
-        created() {
-            axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-                this.store.genre_ids = res.data.genres
-            })
-        },
-
         methods : {
             // funzione che fa un controllo sulla presenza della lingua e fixxa certe mancanze o discordanze 
             controllaLingua() {
@@ -130,7 +124,7 @@ import axios from "axios";
 <template>
 
     <!-- contenitore dell'intero poster -->
-    <div @click="ricercaDettagli()" class="poster">
+    <div @click="ricercaDettagli()" class="poster" >
         <!-- visualizziamo l'immagine di copertina con un 'v-if' di controllo se ci sia un immagine da visualizzare-->
         <img v-if="film.poster_path != null" :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
         <!-- visualizziamo un immagine alternativa nel caso non si hanno immagini a disposizione -->

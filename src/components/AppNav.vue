@@ -25,6 +25,8 @@ import { store } from '../store';
             giveActive(index) {
                 // gli diamo l'index riferito al link della nav cliccato passato come parametro alla chiamata della funzione
                 this.store.active = index
+                // annulliamo il filtro di ricerca per evitare che al cambiamento dell'active ci si ritorvi con una pagina vuota
+                this.store.ricercaGenere=null
             }
         }
     }

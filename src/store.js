@@ -53,6 +53,13 @@ export const store = reactive({
     // in pratica usata come immagine sostitutiva
     alternativeImage : '/wwemzKWzjKYJFfCeiB57q3r4Bcm.png',
 
+    // generi possibili per i film
     genre_ids : [],
+
+    // generi possibili per serie tv
+    tv_genre_ids : [],
+
+    // variabile sentinella per gestire la ricerca/filtraggio dei generi
+    ricercaGenere : null,
 
 })

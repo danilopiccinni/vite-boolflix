@@ -9,6 +9,7 @@
             return {
                 // dichiaro lo store per poterlo usare in pagina
                 store,
+
             }
         },
 
@@ -21,8 +22,10 @@
                 let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey + this.store.querySearch + this.store.search
                 // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                 axios.get(ricercaFilm).then((res) => {
+                    console.log(res)
                     // assegnamo all'array creato e dedicato a contenre i film restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsSearchFilms = res.data.results
+                    console.log(this.store.resultsSearchFilms)
                 })
 
                 // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca sule serie tv
@@ -40,6 +43,13 @@
                     // assegnamo all'array creato e dedicato a contenre i risultati restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsMista = res.data.results
                 })
+            },
+
+            filtra(num) {
+                console.log('click')
+                this.store.ricercaGenere = num
+
+
             }
         }
     }
@@ -55,6 +65,17 @@
         <button @click="eseguiRicerca()" ><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
 
+    <!-- select riguardante il genere da filtrare -->
+            <!-- nel caso in cui ci si trova nella pagina home dove la ricerca è generale non si visualizzano le possibilità di filtraggio per genere -->
+    <select v-if="store.active != 0" v-model="store.ricercaGenere" name="cars" id="cars">
+        <!-- scelta nulla che annulla il filtraggio della ricercca -->
+        <option :value="null">Tutti</option>
+        <!-- visualizza le possibili scelte se riguarda un film (quindi dipende dall'active corrente) -->
+        <option v-if="store.active == 2" v-for="generi in store.genre_ids" :value="generi.id"> {{ generi.name }}</option>
+        <!-- visualizza le possibili scelte se riguarda una serie (quindi dipende dall'active corrente) -->
+        <option v-if="store.active == 1" v-for="generi in store.tv_genre_ids" :value="generi.id"> {{ generi.name }}</option>
+    </select>
+    
 </template>
 
 <style scoped lang="scss">
