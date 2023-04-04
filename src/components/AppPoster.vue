@@ -3,7 +3,8 @@
     import "/node_modules/flag-icons/css/flag-icons.min.css";
     // importo lo store
     import { store } from '../store';
-import axios from "axios";
+
+    import axios from "axios";
 
     export default {
         data() {
@@ -69,7 +70,6 @@ import axios from "axios";
 
             },
 
-
 // <!----------------------------------------------------------- da ottimizzare -->
 // funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
             ricercaDettagli() {
@@ -91,32 +91,28 @@ import axios from "axios";
 
                 if (this.film.title) {
                     axios.get('https://api.themoviedb.org/3/movie/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-    
-                        // this.attori = res.data.cast
                         if (this.attori.length == 0) {
-                            for (let i = 0 ; i < 5 ; i++) {
-                                this.attori.push(res.data.cast[i].name)
+                            for (let i = 0 ; i < res.data.cast.length ; i++) {
+                                if (this.attori.length<5) {
+                                    this.attori.push(res.data.cast[i].name)
+                                }
                             }
                         }
                     })
                 } else if (this.film.name) {
-
                     axios.get('https://api.themoviedb.org/3/tv/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-    
-                        // this.attori = res.data.cast
                         if (this.attori.length == 0) {
-                            for (let i = 0 ; i < 5 ; i++) {
-                                this.attori.push(res.data.cast[i].name)
+                            for (let i = 0 ; i < res.data.cast.length ; i++) {
+                                if (this.attori.length < 5) {
+                                    this.attori.push(res.data.cast[i].name)
+                                }
                             }
                         }
                     })
                 }
-
-
             },
 // funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
 // <!----------------------------------------------------------- da ottimizzare -->
-
         }
     }
 </script>
