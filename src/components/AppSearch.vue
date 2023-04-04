@@ -19,7 +19,7 @@
             eseguiRicerca() {
 
                 // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca sui film
-                let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey + this.store.querySearch + this.store.search
+                let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey + '&page='+ this.store.counterPageFilm + this.store.querySearch + this.store.search
                 // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                 axios.get(ricercaFilm).then((res) => {
                     console.log(res)
@@ -30,7 +30,7 @@
                 })
 
                 // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca sule serie tv
-                let ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey + this.store.querySearch + this.store.search
+                let ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey+ '&page='+ this.store.counterPageFilm  + this.store.querySearch + this.store.search
                     // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                     axios.get(ricercaTv).then((res) => {
                     // assegnamo all'array creato e dedicato a contenre le serie tv restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
@@ -39,12 +39,12 @@
                 })
 
                 // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca multipla/generale
-                let ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey + this.store.querySearch + this.store.search
+                let ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey+ '&page='+ this.store.counterPageFilm  + this.store.querySearch + this.store.search
                     // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                     axios.get(ricercaMista).then((res) => {
                     // assegnamo all'array creato e dedicato a contenre i risultati restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                     this.store.resultsMista = res.data.results
-                    this.store.totalPagemista = res.data.total_pages
+                    this.store.totalPageMista = res.data.total_pages
                 })
             },
 

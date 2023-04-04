@@ -67,4 +67,8 @@ export const store = reactive({
     totalPageTv : null,
 
     totalPageMista : null,
+
+    counterPageFilm: 1,
+    counterPageTv : 1,
+    counterPageHome: 1,
 })
