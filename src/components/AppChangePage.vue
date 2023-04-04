@@ -5,9 +5,6 @@ import axios from 'axios'
         data() {
             return {
                 store,
-                // counterPageFilm: 1,
-                // counterPageTv : 1,
-                // counterPageHome: 1,
             }
         },
 
@@ -99,21 +96,21 @@ import axios from 'axios'
 <template>
 
     <div v-if="store.active == 0" class="container">
-        <button @click="paginaIndietroHome()">indietro</button>
-        <span>Page: {{ store.counterPageFilm }}</span>
-        <button @click="paginaAvantiHome()">avanti</button>
+        <button @click="paginaIndietroHome()"><i class="fa-solid fa-circle-arrow-left"></i></button>
+        <span>Page: {{ store.counterPageHome }} of {{ store.totalPageMista }}</span>
+        <button @click="paginaAvantiHome()"><i class="fa-solid fa-circle-arrow-right"></i></button>
     </div>
 
     <div v-if="store.active == 1" class="container">
-        <button @click="paginaIndietroTv()">indietro</button>
-        <span>Page: {{ store.counterPageTv }}</span>
-        <button @click="paginaAvantiTv()">avanti</button>
+        <button @click="paginaIndietroTv()"><i class="fa-solid fa-circle-arrow-left"></i></button>
+        <span>Page: {{ store.counterPageTv }} of {{ store.totalPageTv }}</span>
+        <button @click="paginaAvantiTv()"><i class="fa-solid fa-circle-arrow-right"></i></button>
     </div>
     
     <div v-if="store.active == 2" class="container">
-        <button @click="paginaIndietroFilm()">indietro</button>
-        <span>Page: {{ store.counterPageHome }}</span>
-        <button @click="paginaAvantiFilm()">avanti</button>
+        <button @click="paginaIndietroFilm()"><i class="fa-solid fa-circle-arrow-left"></i></button>
+        <span>Page: {{ store.counterPageFilm }} of {{ store.totalPageFilm }}</span>
+        <button @click="paginaAvantiFilm()"><i class="fa-solid fa-circle-arrow-right"></i></button>
     </div>
         
 </template>
@@ -126,6 +123,11 @@ import axios from 'axios'
         align-items: center;
         justify-content: center;
         gap: 10px;
+
+        button {
+            background-color: transparent;
+            border-radius: 50%;
+        }
     }
 
 </style>
