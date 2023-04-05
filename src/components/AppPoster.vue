@@ -9,14 +9,6 @@
     export default {
         data() {
             return {
-
-                show: true,
-
-                attori : [],
-                IdGeneriIndividuati : [],
-                generiIndividuatiDaVedere : [],
-
-
                 // dichiaro lo store
                 store,
 
@@ -70,49 +62,6 @@
 
             },
 
-// <!----------------------------------------------------------- da ottimizzare -->
-// funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
-            ricercaDettagli() {
-
-                if (this.IdGeneriIndividuati.length == 0) {
-                this.IdGeneriIndividuati = this.film.genre_ids
-                    for (let i = 0; i < this.store.genre_ids.length ; i++) {
-                        if (this.IdGeneriIndividuati.includes(this.store.genre_ids[i].id)) {
-                            this.generiIndividuatiDaVedere.push (this.store.genre_ids[i].name)
-                        }
-                    }
-                }
-
-                if (this.show) {
-                    this.show = false
-                } else {
-                    this.show = true
-                }
-
-                if (this.film.title) {
-                    axios.get('https://api.themoviedb.org/3/movie/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-                        if (this.attori.length == 0) {
-                            for (let i = 0 ; i < res.data.cast.length ; i++) {
-                                if (this.attori.length<5) {
-                                    this.attori.push(res.data.cast[i].name)
-                                }
-                            }
-                        }
-                    })
-                } else if (this.film.name) {
-                    axios.get('https://api.themoviedb.org/3/tv/'+this.film.id+'/credits?api_key=b528c7aa813cfc570c3b175c2311ee69').then((res) => {
-                        if (this.attori.length == 0) {
-                            for (let i = 0 ; i < res.data.cast.length ; i++) {
-                                if (this.attori.length < 5) {
-                                    this.attori.push(res.data.cast[i].name)
-                                }
-                            }
-                        }
-                    })
-                }
-            },
-// funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
-// <!----------------------------------------------------------- da ottimizzare -->
             giveActiveJumbo() {
                 this.store.activeObjectJumbo = this.film
                 console.log(this.store.activeObjectJumbo)
@@ -124,7 +73,7 @@
 <template>
 
     <!-- contenitore dell'intero poster -->
-    <div @click="ricercaDettagli() , giveActiveJumbo()" class="poster" >
+    <div @click=" giveActiveJumbo()" class="poster" >
         <!-- visualizziamo l'immagine di copertina con un 'v-if' di controllo se ci sia un immagine da visualizzare-->
         <img v-if="film.poster_path != null" :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
         <!-- visualizziamo un immagine alternativa nel caso non si hanno immagini a disposizione -->
@@ -133,7 +82,7 @@
             <!-- contenitore generale delle info riguardanti il risultato -->
             <div class="container-info">
 
-                <div v-show="show">
+                <div>
                     <!-- contenitore del titolo/nome del film che si visualizza solo se sia un film -->
                     <div v-if="film.title">
                         <span>{{ film.title }}</span>
@@ -172,35 +121,6 @@
                     </div>
 
                 </div>
-
-
-<!----------------------------------------------------------- da ottimizzare -->
-<!----------------------------------------------------------- -->
-<!-- questo verrà visualizzato al click del poster sostituendo la visualizzazione in hover di prima -->
-                <div v-show="!show">
-                    <div>
-                        <strong>Attori:</strong>
-                        <ul>
-                            <li v-for="attori in attori"> {{attori}}</li>
-                        </ul>
-                    </div>
-
-                    <hr>
-                    <hr>
-
-                    <div>
-                        <strong>Fa parte di:</strong>
-                        <ul>
-                            <li v-for="(generi,index) in generiIndividuatiDaVedere">
-                            <em>Genere {{ index+1 }}:</em> <strong>{{ generi }}</strong> </li>
-                        </ul>
-                    </div>
-                </div>
-<!-- / questo verrà visualizzato al click del poster sostituendo la visualizzazione in hover di prima -->
-<!----------------------------------------------------------- -->
-<!-----------------------------------------------------------  da ottimizzare -->
-
-
             </div>
     </div>
 
@@ -258,11 +178,5 @@
     .poster:hover .container-info{
         display: block;
     }
-
-    ul{
-        list-style-type: none;
-    }
-
-
 
 </style>
