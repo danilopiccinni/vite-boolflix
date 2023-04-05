@@ -61,7 +61,7 @@ import axios from 'axios';
 <template>
     <div v-if="store.activeObjectJumbo.vuoto != 'vuoto'"  class="jumbo" @click="raccogliInfo()">
         <!-- visualizziamo l'immagine di copertina con un 'v-if' di controllo se ci sia un immagine da visualizzare-->
-        <img v-if="store.activeObjectJumbo.backdrop_path != null" :src="store.UriImage + 'w500' +store.activeObjectJumbo.backdrop_path" alt="">
+        <img v-if="store.activeObjectJumbo.backdrop_path != null" :src="store.UriImage + 'w1280' +store.activeObjectJumbo.backdrop_path" alt="">
         <!-- visualizziamo un immagine alternativa nel caso non si hanno immagini a disposizione -->
         <img v-else :src="store.UriImage + store.posterImgSize + store.alternativeImage" alt="" class="alternative-image">
 
@@ -90,18 +90,35 @@ import axios from 'axios';
 <style scoped lang="scss">
 
 .jumbo {
+    position: relative;
+
     display: flex;
     justify-content: center;
     padding: 100px 0;
+
+    height: 700px;
 }
 
 img {
     width: 100%;
-    max-height: 400px;
+    object-fit: cover;
+    object-position: top;
+    
+
 }
 
 ul {
     list-style-type: none;
+}
+
+.info {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    padding: 100px 10px;
+
+    background-color: rgba(0, 0, 0, 0.572);
 }
 
 </style>
