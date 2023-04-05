@@ -69,7 +69,7 @@ import axios from 'axios'
                 if (this.store.counterPageFilm !=1) {
                     this.store.counterPageFilm--
                     if (this.store.search == '') {
-                        ricercaFilm = 'https://api.themoviedb.org/3/trending/movie/day?api_key=b528c7aa813cfc570c3b175c2311ee69'
+                        ricercaFilm = 'https://api.themoviedb.org/3/trending/movie/day?api_key=b528c7aa813cfc570c3b175c2311ee69&page=' + this.store.counterPageFilm
                     } else {
                         ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ '&page='+ this.store.counterPageFilm + this.store.querySearch + this.store.search
                     }
@@ -89,7 +89,7 @@ import axios from 'axios'
                 if (this.store.counterPageTv !=1) {
                         this.store.counterPageTv--
                         if(this.store.search == '') {
-                        ricercaTv = 'https://api.themoviedb.org/3/trending/tv/day?api_key=b528c7aa813cfc570c3b175c2311ee69'
+                        ricercaTv = 'https://api.themoviedb.org/3/trending/tv/day?api_key=b528c7aa813cfc570c3b175c2311ee69&page=' + this.store.counterPageTv
                     } else {
                         ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey+ '&page='+ this.store.counterPageTv + this.store.querySearch + this.store.search
                     }  // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
@@ -105,7 +105,7 @@ import axios from 'axios'
                 if (this.store.counterPageHome !=1) {
                         this.store.counterPageHome--
                         if(this.store.search == ''){
-                        ricercaMista = 'https://api.themoviedb.org/3/trending/all/day?api_key=b528c7aa813cfc570c3b175c2311ee69'
+                        ricercaMista = 'https://api.themoviedb.org/3/trending/all/day?api_key=b528c7aa813cfc570c3b175c2311ee69&page=' + this.store.counterPageHome
                     } else {
                         ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey+ '&page='+ this.store.counterPageHome + this.store.querySearch + this.store.search
                     }      
