@@ -10,9 +10,14 @@ import axios from 'axios'
 
         methods : {
             paginaAvantiFilm() {
+                let ricercaFilm;
                 if (this.store.counterPageFilm < this.store.totalPageFilm) {
                     this.store.counterPageFilm = this.store.counterPageFilm + 1
-                    let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ '&page='+ this.store.counterPageFilm + this.store.querySearch + this.store.search
+                    if (this.store.search == '') {
+                        ricercaFilm = 'https://api.themoviedb.org/3/trending/movie/day?api_key=b528c7aa813cfc570c3b175c2311ee69&page=' + this.store.counterPageFilm
+                    } else {
+                        ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ '&page='+ this.store.counterPageFilm + this.store.querySearch + this.store.search
+                    }
                     console.log(ricercaFilm)
                     // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                     axios.get(ricercaFilm).then((res) => {
@@ -25,10 +30,15 @@ import axios from 'axios'
             },
 
             paginaAvantiTv() {
+                let ricercaTv;
                 if (this.store.counterPageTv < this.store.totalPageTv) {
                     this.store.counterPageTv++
+                    if(this.store.search == '') {
+                        ricercaTv = 'https://api.themoviedb.org/3/trending/tv/day?api_key=b528c7aa813cfc570c3b175c2311ee69&page=' + this.store.counterPageTv
+                    } else {
+                        ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey+ '&page='+ this.store.counterPageTv + this.store.querySearch + this.store.search
+                    }
                     // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca sule serie tv
-                    let ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey+ '&page='+ this.store.counterPageTv + this.store.querySearch + this.store.search
                     // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                     axios.get(ricercaTv).then((res) => {
                     // assegnamo all'array creato e dedicato a contenre le serie tv restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
@@ -38,10 +48,15 @@ import axios from 'axios'
             },
 
             paginaAvantiHome() {
+                let ricercaMista;
                 if (this.store.counterPageHome < this.store.totalPageMista) {
                     this.store.counterPageHome++
+                    if(this.store.search == ''){
+                        ricercaMista = 'https://api.themoviedb.org/3/trending/all/day?api_key=b528c7aa813cfc570c3b175c2311ee69&page=' + this.store.counterPageHome
+                    } else {
+                        ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey+ '&page='+ this.store.counterPageHome + this.store.querySearch + this.store.search
+                    }
                     // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca multipla/generale
-                    let ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey+ '&page='+ this.store.counterPageHome + this.store.querySearch + this.store.search
                     // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                     axios.get(ricercaMista).then((res) => {
                     // assegnamo all'array creato e dedicato a contenre i risultati restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
@@ -50,10 +65,15 @@ import axios from 'axios'
                 }
             },
             paginaIndietroFilm() {
+                let ricercaFilm;
                 if (this.store.counterPageFilm !=1) {
                     this.store.counterPageFilm--
-                    let ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ '&page='+ this.store.counterPageFilm + this.store.querySearch + this.store.search
-                    console.log(ricercaFilm)
+                    if (this.store.search == '') {
+                        ricercaFilm = 'https://api.themoviedb.org/3/trending/movie/day?api_key=b528c7aa813cfc570c3b175c2311ee69'
+                    } else {
+                        ricercaFilm = this.store.Uri + this.store.searchOfMovie + this.store.ApiKey+ '&page='+ this.store.counterPageFilm + this.store.querySearch + this.store.search
+                    }
+                     console.log(ricercaFilm)
                     // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                     axios.get(ricercaFilm).then((res) => {
                         console.log(res)
@@ -65,11 +85,14 @@ import axios from 'axios'
             },
 
             paginaIndietroTv() {
+                let ricercaTv
                 if (this.store.counterPageTv !=1) {
                         this.store.counterPageTv--
-                        // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca sule serie tv
-                        let ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey+ '&page='+ this.store.counterPageTv + this.store.querySearch + this.store.search
-                        // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
+                        if(this.store.search == '') {
+                        ricercaTv = 'https://api.themoviedb.org/3/trending/tv/day?api_key=b528c7aa813cfc570c3b175c2311ee69'
+                    } else {
+                        ricercaTv = this.store.Uri + this.store.searchTv + this.store.ApiKey+ '&page='+ this.store.counterPageTv + this.store.querySearch + this.store.search
+                    }  // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                         axios.get(ricercaTv).then((res) => {
                         // assegnamo all'array creato e dedicato a contenre le serie tv restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                         this.store.resultsSearchTv = res.data.results
@@ -78,11 +101,15 @@ import axios from 'axios'
             },
 
             paginaIndietroHome() {
+                let ricercaMista
                 if (this.store.counterPageHome !=1) {
                         this.store.counterPageHome--
-                        // dichiaro in una variabile la stringa che si dovrà usarre tramite axios (.get('')) --- in questo caso creata per eseguire una ricerca multipla/generale
-                        let ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey+ '&page='+ this.store.counterPageHome + this.store.querySearch + this.store.search
-                        // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
+                        if(this.store.search == ''){
+                        ricercaMista = 'https://api.themoviedb.org/3/trending/all/day?api_key=b528c7aa813cfc570c3b175c2311ee69'
+                    } else {
+                        ricercaMista = this.store.Uri + this.store.searchMulti + this.store.ApiKey+ '&page='+ this.store.counterPageHome + this.store.querySearch + this.store.search
+                    }      
+                     // faccio la chiamata axios sulla 'stringa/link' API che dopo aver fatto la richiesta ci restituisce un risultato 'res' che è sempre un oggetto
                         axios.get(ricercaMista).then((res) => {
                         // assegnamo all'array creato e dedicato a contenre i risultati restituiti dalla ricerca trovando nell'oggetto 'res' l'array che contiene effettivamente quello che cerchiamo
                         this.store.resultsMista = res.data.results
