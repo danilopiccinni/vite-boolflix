@@ -113,7 +113,7 @@
         height: calc(100% - 68px);
         background-color: #141414;
 
-        padding: 80px 50px;
+        padding: 0px 50px;
         .container {
             margin-bottom: 25px;
             .search-title {

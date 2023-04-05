@@ -113,6 +113,10 @@
             },
 // funzione che regola la raccolta dati aggiuntivi (primi 5 attori e i generi del poster cliccato)
 // <!----------------------------------------------------------- da ottimizzare -->
+            giveActiveJumbo() {
+                this.store.activeObjectJumbo = this.film
+                console.log(this.store.activeObjectJumbo)
+            }
         }
     }
 </script>
@@ -120,7 +124,7 @@
 <template>
 
     <!-- contenitore dell'intero poster -->
-    <div @click="ricercaDettagli()" class="poster" >
+    <div @click="ricercaDettagli() , giveActiveJumbo()" class="poster" >
         <!-- visualizziamo l'immagine di copertina con un 'v-if' di controllo se ci sia un immagine da visualizzare-->
         <img v-if="film.poster_path != null" :src="store.UriImage + store.posterImgSize+film.poster_path" alt="">
         <!-- visualizziamo un immagine alternativa nel caso non si hanno immagini a disposizione -->

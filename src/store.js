@@ -71,4 +71,6 @@ export const store = reactive({
     counterPageFilm: 1,
     counterPageTv : 1,
     counterPageHome: 1,
+
+    activeObjectJumbo : { name:'vuoto'} ,
 })

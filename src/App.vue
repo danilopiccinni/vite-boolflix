@@ -1,5 +1,6 @@
 <script>
 // importo il componente AppHeader e AppMain
+import AppJumbo from './components/AppJumbo.vue';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 // / importo il componente AppHeader e AppMain
@@ -19,6 +20,7 @@ import { store } from './store';
     components : {
       AppMain,
       AppHeader,
+      AppJumbo,
     }
   }
 
@@ -27,8 +29,12 @@ import { store } from './store';
 
 <template>
 
+  
   <!-- header (componente importato) -->
   <AppHeader></AppHeader>
+
+  <!-- jumbo (componente importato) -->
+  <AppJumbo></AppJumbo>
 
   <!-- main (componente importato) -->
   <AppMain></AppMain>
