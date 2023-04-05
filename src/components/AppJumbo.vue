@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <div v-if="store.activeObjectJumbo.name != 'vuoto'"  class="jumbo">
+    <div v-if="store.activeObjectJumbo.vuoto != 'vuoto'"  class="jumbo">
         <!-- visualizziamo l'immagine di copertina con un 'v-if' di controllo se ci sia un immagine da visualizzare-->
         <img v-if="store.activeObjectJumbo.backdrop_path != null" :src="store.UriImage + 'w500' +store.activeObjectJumbo.backdrop_path" alt="">
         <!-- visualizziamo un immagine alternativa nel caso non si hanno immagini a disposizione -->

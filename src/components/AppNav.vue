@@ -27,6 +27,8 @@ import { store } from '../store';
                 this.store.active = index
                 // annulliamo il filtro di ricerca per evitare che al cambiamento dell'active ci si ritorvi con una pagina vuota
                 this.store.ricercaGenere=null
+                // annulla la visualizazzione jumbo
+                this.store.activeObjectJumbo = {vuoto : 'vuoto'}
             }
         }
     }

@@ -72,5 +72,5 @@ export const store = reactive({
     counterPageTv : 1,
     counterPageHome: 1,
 
-    activeObjectJumbo : { name:'vuoto'} ,
+    activeObjectJumbo : { vuoto :'vuoto'} ,
 })
